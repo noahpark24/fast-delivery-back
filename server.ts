@@ -1,7 +1,13 @@
+import { Request, Response } from "express";
 const express = require("express");
-
 const app = express();
 
-app.listen(3000, () => {
+app.get("/", (req: Request, res: Response) => {
+  res.send("HOLA MUNDOOOOOO");
+});
+
+console.log("CHAU MUNDOOOOOO");
+
+app.listen(3001, () => {
   console.log("listening...");
 });
