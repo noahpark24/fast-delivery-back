@@ -7,6 +7,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 console.log("CHAU MUNDOOOOOO");
+console.log("Testing CI");
 
 app.listen(3001, () => {
   console.log("listening...");
