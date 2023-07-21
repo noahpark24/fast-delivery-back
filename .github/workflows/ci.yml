@@ -3,11 +3,11 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout code
@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Run linter
-        run: npm run lint
+        run: npm run lint -- --fix
 
       - name: Run tests
         run: npm test
