@@ -27,7 +27,6 @@ jobs:
 
       - name: Run linter fix
         run: npm run lint -- --fix
-        if: ${{ failure() }}
 
       # - name: Run tests
       #   run: npm test
