@@ -1,10 +1,5 @@
 {
   "parser": "@babel/eslint-parser",
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
   "env": {
     "browser": true,
     "es2021": true,
@@ -12,11 +7,7 @@
     "commonjs": true,
     "jest/globals": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:react-hooks/recommended"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
