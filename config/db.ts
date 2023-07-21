@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-const URL = "mongodb://localhost/fast-delivery-back";
+const URL = 'mongodb://localhost/fast-delivery-back'
 
 mongoose
-  .connect(URL)
-  .then(() => console.log("DB is connected"))
-  .catch((error) => console.log(error));
+	.connect(URL)
+	.then(() => console.log('DB is connected'))
+	.catch((error) => console.log(error))
 
-export default mongoose;
+export default mongoose
