@@ -25,6 +25,7 @@
     "@types/jest": "^29.5.3",
     "@types/node": "^20.4.2",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@types/jsonwebtoken": "^9.0.2",
     "eslint": "^8.45.0",
     "eslint-plugin-cypress": "^2.13.3",
     "eslint-plugin-jest": "^27.2.3",
