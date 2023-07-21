@@ -4,7 +4,8 @@
   "description": "fast-delivery-back",
   "main": "server.ts",
   "scripts": {
-    "start": "nodemon --exec ts-node --files server.ts",
+    "start": "nodemon server.ts",
+    "dev": "nodemon --exec ts-node --files server.ts",
     "lint": "eslint .",
     "test": "jest"
   },
