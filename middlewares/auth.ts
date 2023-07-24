@@ -1,42 +1,29 @@
 import { Request, Response, NextFunction } from "express";
 import { validateToken } from "../config/tokens";
- 
-interface AuthenticatedUser {
-  //  propiedades que tiene tu usuario autenticado
-  id: number;
-  name: string;
-  email: string;
-  lastName: string;
-  admin: boolean;
-  // ...
-} 
+import { Responses } from "../services/responses";
+import { UserInterface } from "../interfaces/user.interfaces";
+const response = new Responses();
 
-// Extiende la interfaz Request para agregar la propiedad 'user'
 declare global {
   namespace Express {
     interface Request {
-      user?: AuthenticatedUser;
+      user: UserInterface;
     }
   }
 }
 
-function validateAuth(req: Request, res: Response, next: NextFunction): void {
-  const token: string | undefined = req.cookies.token;
-
-  if (!token) {
-    res.sendStatus(401);
-    return;
+function validateUser(req: Request, res: Response, next: NextFunction) {
+  try {
+    const token = req.headers.authorization;
+    if (token) {
+      const { payload } = validateToken(token);
+      req.user = payload as UserInterface;
+      if (payload) return next();
+    }
+    response.error(res, "unauthorized user", 401);
+  } catch (error) {
+    response.error(res, "validarion error", 401);
   }
-
-  const { user }: { user: AuthenticatedUser } = validateToken(token);
-  if (!user) {
-    res.sendStatus(401);
-    return;
-  }
-
-  req.user = user;
-
-  next();
 }
 
-export { validateAuth };
+export default validateUser;

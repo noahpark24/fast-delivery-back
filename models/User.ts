@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import validator from "validator";
+import { UserWithPasswordValidation } from "../interfaces/user.interfaces";
 
 const User = new mongoose.Schema({
   username: {
@@ -18,7 +19,7 @@ const User = new mongoose.Schema({
     type: String,
     required: [true, "enter a password"],
     validate: [
-      (str) => {
+      (str: string) => {
         validator.isStrongPassword(str, {
           minLength: 8,
           minUppercase: 1,
@@ -60,17 +61,24 @@ User.pre("save", function (next) {
   if (!this.isModified("password")) {
     return next();
   }
-  const salt = bcrypt.genSaltSync(8);
+
+  if (typeof this.password !== "string") {
+    return next(new Error("Password is missing or not a string."));
+  }
+
+  const salt: string = bcrypt.genSaltSync(8);
   this.salt = salt;
   return bcrypt.hash(this.password, this.salt).then((hash) => {
     this.password = hash;
   });
 });
 
-User.methods.validatePassword = async function (password) {
-  const hash = await bcrypt.hash(password, this.salt);
-  const checking = hash === this.password;
+User.methods.validatePassword = async function (password: string) {
+  const hash: string = await bcrypt.hash(password, this.salt);
+  const checking: boolean = hash === this.password;
   return checking;
 };
+// const UserModel = mongoose.model("User", User);
+const UserModel = mongoose.model<UserWithPasswordValidation>("User", User);
 
-module.exports = mongoose.model("User", User);
+export default UserModel;
