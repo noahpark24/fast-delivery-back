@@ -61,7 +61,6 @@ User.pre("save", function (next) {
   if (!this.isModified("password")) {
     return next();
   }
-
   if (typeof this.password !== "string") {
     return next(new Error("Password is missing or not a string."));
   }
