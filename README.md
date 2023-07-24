@@ -12,29 +12,9 @@ El proyecto sigue una estructura de directorios que facilita la escalabilidad y 
 
 fast-delivery/
 
-├── controllers/
-├─── example.controller.ts
-├── services/
-├─── example.service.ts
-├── interfaces/
-├─── example.interface.ts
-├── config/
-├─── exampleDB.ts
-├─── exampleToken.ts
-├── middlewares/
-├─── example.ts
-├── models/
-├─── example.ts
-├── routes/
-├─── example.ts
-├── docs/
-├─── example.ts
-├── server.ts
-├── Dockerfile.ts
-├── package.json
-├── tsconfig.json
-├── test.config.ts
-├── .eslintrc.json
+![BOILERPLATE BACK FAST-DELIVERY](https://github.com/noahpark24/fast-delivery-back/assets/96040848/737cdce5-c43a-49ba-95ac-9b8be97a7d5c)
+
+
 
 
 ## Arquitectura y Patrón de Diseño
