@@ -1,12 +1,22 @@
-import express, { Request, Response } from 'express'
-const app = express()
+import express, { Request, Response } from "express";
+import validateUser from "./middlewares/auth";
+import bodyParser from "body-parser";
+import routes from "./routes/index";
+import connectDB from "./config/db";
 
-app.get('/', (req: Request, res: Response) => {
-	res.send('HOLA MARADONAAAAAAA')
-})
+const server = express();
 
-console.log('CHAU MUNDOOOOOO')
+//middlewares
+server.use(bodyParser.json());
+server.use("/api", routes);
 
-app.listen(3001, () => {
-	console.log('listening...')
-})
+server.get("/", (req: Request, res: Response) => {
+  res.send("HOLA MUNDOOOOOOO");
+});
+
+console.log("CHAU MUNDOOOOOO");
+
+connectDB();
+server.listen(3001, () => {
+  console.log("listening");
+});
