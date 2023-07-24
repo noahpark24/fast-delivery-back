@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const URL = "mongodb://localhost/fast-delivery-back";
+const URL = "mongodb://mongodb/fast-delivery-back";
 
 const connectDB = async () => {
   try {
