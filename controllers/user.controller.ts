@@ -31,16 +31,20 @@ const signup = asyncHandler(async (req: Request, res: Response) => {
 
 const login = asyncHandler(async (req: Request, res: Response) => {
   try {
-    let user: UserWithPasswordValidation = req.body;
+    const { username, password }: UserWithPasswordValidation = req.body;
 
-    const searchUser = await findByUsername(user.username);
+    const user = await findByUsername(username);
 
-    if (!searchUser) {
-      responses.error(res, "invalid data", 404);
+    if (!user) {
+      responses.error(res, "Invalid username or password", 404);
+      return;
     }
-    const isValid = await validateUserPassword(user, user.password);
+
+    const isValid = await validateUserPassword(user, password);
+
     if (!isValid) {
-      responses.error(res, "invalid data", 404);
+      responses.error(res, "Invalid username or password", 401);
+      return;
     }
 
     const payload: UserPayload = {
@@ -54,7 +58,7 @@ const login = asyncHandler(async (req: Request, res: Response) => {
 
     responses.success(res, token, 200);
   } catch (error) {
-    responses.error(res, "login error", 400);
+    responses.error(res, "Login error", 500);
   }
 });
 

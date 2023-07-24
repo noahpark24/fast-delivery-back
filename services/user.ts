@@ -13,9 +13,7 @@ const createUser = async (userData: UserInterface) => {
 
 const findByUsername = async (username: string) => {
   try {
-    console.log("username   : ", username);
-
-    let user: UserInterface | null;
+    let user: UserWithPasswordValidation | null;
     user = await UserModel.findOne({ username });
     return user;
   } catch (error) {
@@ -29,6 +27,7 @@ const validateUserPassword = async (
 ) => {
   try {
     const isValid = await user.validatePassword(password);
+
     return isValid;
   } catch (error) {
     throw error;
