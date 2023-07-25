@@ -11,7 +11,7 @@ server.use(bodyParser.json());
 server.use("/api", routes);
 
 server.get("/", (req: Request, res: Response) => {
-  res.send("HOLA MUNDOOOOOOO");
+  res.send("HOLA MESI");
 });
 
 console.log("CHAU MUNDOOOOOO");

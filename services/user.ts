@@ -13,8 +13,9 @@ const createUser = async (userData: UserInterface) => {
 
 const findByUsername = async (username: string) => {
   try {
-    let user: UserWithPasswordValidation | null;
-    user = await UserModel.findOne({ username });
+    let user: UserWithPasswordValidation | null = await UserModel.findOne({
+      username,
+    });
     return user;
   } catch (error) {
     throw error;
