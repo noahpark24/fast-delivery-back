@@ -55,9 +55,8 @@ const login = asyncHandler(async (req: Request, res: Response) => {
     };
 
     const token: string = generateToken(payload);
-    const saludo: string = "hola mundo autenticado!"; //spring 1 testing, delete foward
 
-    responses.success(res, saludo, 200);
+    responses.success(res, token, 200);
   } catch (error) {
     responses.error(res, "Login error", 500);
   }

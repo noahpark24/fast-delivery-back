@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { Package } from "../interfaces/package.interfaces";
+import {PackageInterface } from "../interfaces/package.interfaces";
 
 const PackageSchema: Schema = new Schema({
   client: {
@@ -22,11 +22,6 @@ const PackageSchema: Schema = new Schema({
     default:false,
     required: [true, "Please enter the package status"],
   },
-  delivery_date: {
-    type: Date,  
-    default: null, 
-    required: [true, "Please enter the delivery date"],
-  },
   package_weight: {
     type: Number, 
     default: 0,  
@@ -38,6 +33,6 @@ const PackageSchema: Schema = new Schema({
   }, 
 });
 
-const Package = mongoose.model<Package>("Package", PackageSchema);
+const Package = mongoose.model<PackageInterface>("Package", PackageSchema);
 
 export default Package;
