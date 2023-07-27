@@ -1,4 +1,4 @@
-import user from "./user";
+import user from "./user.routes";
 import express from "express";
 
 const router = express();
