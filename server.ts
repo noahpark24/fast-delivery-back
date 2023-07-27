@@ -1,20 +1,16 @@
-import express, { Request, Response } from "express";
-import validateUser from "./middlewares/auth";
+import express from "express";
 import bodyParser from "body-parser";
 import routes from "./routes/index";
 import connectDB from "./config/db";
+import cookieParser from "cookie-parser";
 
 const server = express();
 
 //middlewares
 server.use(bodyParser.json());
+server.use(express.json());
+server.use(cookieParser());
 server.use("/api", routes);
-
-server.get("/", (req: Request, res: Response) => {
-  res.send("HOLA MESI");
-});
-
-console.log("CHAU MUNDOOOOOO");
 
 connectDB();
 server.listen(3001, () => {
