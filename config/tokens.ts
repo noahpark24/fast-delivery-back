@@ -10,8 +10,14 @@ const generateToken = (payload: UserPayload): string => {
   return token;
 };
 
-const validateToken = (token: string): any => {
-  return jwt.verify(token, SECRET) as UserPayload;
+const validateToken = (token: string): UserPayload | null => {
+  try {
+    const decodedToken = jwt.verify(token, SECRET) as UserPayload;
+    return decodedToken;
+  } catch (error) {
+    console.error("Error validating token:", error);
+    return null;
+  }
 };
 
 export { generateToken, validateToken };

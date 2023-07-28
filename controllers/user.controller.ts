@@ -53,6 +53,8 @@ const login = asyncHandler(async (req: Request, res: Response) => {
     };
 
     const token: string = generateToken(payload);
+    console.log("SOY EL TOKEN DEL CONTROLLER", token);
+
     res.cookie("token", token);
     responses.success(res, token, 200);
   } catch (error) {

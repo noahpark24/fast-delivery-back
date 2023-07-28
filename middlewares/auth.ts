@@ -19,7 +19,7 @@ function validateUser(req: Request, res: Response, next: NextFunction) {
 
   if (!token) return res.sendStatus(401);
 
-  const { payload } = validateToken(token);
+  const { payload }: any = validateToken(token);
 
   console.log("EL PAYLOAD EH ETE : ", payload);
 

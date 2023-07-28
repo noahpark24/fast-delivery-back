@@ -13,6 +13,6 @@ server.use(cookieParser());
 server.use("/api", routes);
 
 connectDB();
-server.listen(3001, () => {
+server.listen(3001, "0.0.0.0", () => {
   console.log("listening");
 });
