@@ -15,17 +15,13 @@ declare global {
 function validateUser(req: Request, res: Response, next: NextFunction) {
   const token: string = req.cookies.token;
 
-  console.log("EL TOKEN EH ETE : ", token);
-
   if (!token) return res.sendStatus(401);
 
-  const { payload }: any = validateToken(token);
+  const { user }: string | any = validateToken(token);
 
-  console.log("EL PAYLOAD EH ETE : ", payload);
+  if (!user) return res.sendStatus(401);
 
-  if (!payload) return res.sendStatus(401);
-
-  req.user = payload;
+  req.user = user;
 
   next();
 }
