@@ -13,17 +13,17 @@ declare global {
 }
 
 function validateUser(req: Request, res: Response, next: NextFunction) {
-  try {
-    const token = req.headers.authorization;
-    if (token) {
-      const { payload } = validateToken(token);
-      req.user = payload as UserInterface;
-      if (payload) return next();
-    }
-    response.error(res, "unauthorized user", 401);
-  } catch (error) {
-    response.error(res, "validarion error", 401);
-  }
+  const token: string = req.cookies.token;
+
+  if (!token) return res.sendStatus(401);
+
+  const { user }: string | any = validateToken(token);
+
+  if (!user) return res.sendStatus(401);
+
+  req.user = user;
+
+  next();
 }
 
 export default validateUser;
