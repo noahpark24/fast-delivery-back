@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches:
+    branches-ignore:
       - develop
 
 jobs:
@@ -26,3 +26,6 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+      - name: Prevent Push on Failure
+        run: exit 1
