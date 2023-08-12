@@ -1,3 +1,3 @@
-import User from "./User";
+import User from './User'
 import Package from './Package'
-export { User , Package};
+export { User , Package}
