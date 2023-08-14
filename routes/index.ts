@@ -1,4 +1,4 @@
-import user from "./user.routes";
+import user from "./user.route";
 import packages from "./package.route";
 import express from "express";
 

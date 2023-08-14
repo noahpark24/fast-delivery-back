@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import { Request, Response } from "express";
 import { Responses } from "../services/responses";
 import { generateToken } from "../config/tokens";
-import User_Services from "../services/user.service";
+import User_Services from "../services/user.services";
 import {
   UserInterface,
   UserPayload,
