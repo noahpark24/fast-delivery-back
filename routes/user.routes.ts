@@ -6,7 +6,7 @@ const router = express()
 
 router.post('/signup', signup)
 router.post('/login', login)
-router.post('/hola', validateUser, hola)
+router.get('/hola', validateUser, hola)
 router.post('/logout', validateUser, logout)
 
 export default router
