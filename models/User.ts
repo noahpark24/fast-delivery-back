@@ -4,11 +4,6 @@ import validator from 'validator'
 import { UserWithPasswordValidation } from '../interfaces/user.interfaces'
 
 const User = new mongoose.Schema({
-	username: {
-		type: String,
-		required: [true, 'enter a username'],
-		unique: true,
-	},
 	email: {
 		type: String,
 		required: [true, 'enter an email'],
