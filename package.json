@@ -1,6 +1,8 @@
 {
   "name": "fast-delivery-back",
+
   "version": "1.4.0",
+
   "description": "fast-delivery-back",
   "main": "server.ts",
   "scripts": {
