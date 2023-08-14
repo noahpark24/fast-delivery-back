@@ -80,4 +80,16 @@ const logout = asyncHandler(async (req: Request, res: Response) => {
 	}
 })
 
-export { login, signup, logout }
+const hola = asyncHandler(async (req: Request, res: Response) => {
+	try {
+		if (!req.user) {
+			responses.error(res, 'User is not AUTENTICADO', 401)
+		}
+
+		responses.success(res, 'HOLA , ESTAS AUTENTICADO', 200)
+	} catch (error) {
+		responses.error(res, 'HOLA error', 500)
+	}
+})
+
+export { login, signup, logout, hola }
