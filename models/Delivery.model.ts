@@ -1,9 +1,6 @@
 import { Schema, model } from 'mongoose'
-import { RepartidorInterface } from '../interfaces/delivery.interfaces'
 
-const RepartidorSchema = new Schema<RepartidorInterface>({
-	name: { type: String, required: true },
-
+const DeliveryMan = new Schema({
 	email: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
 	max_deliveries_per_day: {
@@ -16,8 +13,24 @@ const RepartidorSchema = new Schema<RepartidorInterface>({
 		type: Number,
 		default: 0,
 	},
+	active: {
+		type: Boolean,
+		default: false,
+	},
+	drinked_alcohol: {
+		type: Boolean,
+		default: false,
+	},
+	taked_drugs: {
+		type: Boolean,
+		default: false,
+	},
+	sleeped_well: {
+		type: Boolean,
+		default: true,
+	},
 })
 
-const Repartidor = model<RepartidorInterface>('Repartidor', RepartidorSchema)
+const Repartidor = model('Deliveryman', DeliveryMan)
 
 export default Repartidor
