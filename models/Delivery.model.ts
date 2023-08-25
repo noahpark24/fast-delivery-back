@@ -3,15 +3,10 @@ import { Schema, model } from 'mongoose'
 const DeliveryMan = new Schema({
 	email: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
-	max_deliveries_per_day: {
-		type: Number,
-		default: 10,
-		min: 1,
-		max: 10,
-	},
 	current_deliveries: {
 		type: Number,
 		default: 0,
+		max: 10,
 	},
 	active: {
 		type: Boolean,
@@ -29,6 +24,7 @@ const DeliveryMan = new Schema({
 		type: Boolean,
 		default: true,
 	},
+	user: { type: Schema.Types.ObjectId, ref: 'User' },
 })
 
 const Repartidor = model('Deliveryman', DeliveryMan)

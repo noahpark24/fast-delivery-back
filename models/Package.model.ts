@@ -29,6 +29,7 @@ const PackageSchema: Schema = new Schema({
 		type: String,
 		default: null,
 	},
+	deliveryman: { type: Schema.Types.ObjectId, ref: 'DeliveryMan' },
 })
 
 const Package = mongoose.model<PackageInterface>('Package', PackageSchema)
