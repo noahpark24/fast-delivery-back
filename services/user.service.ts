@@ -1,4 +1,5 @@
 import { User as UserModel } from '../models'
+import { DeliveryMan } from '../models'
 import { UserInterface } from '../interfaces/user.interfaces'
 import { UserWithPasswordValidation } from '../interfaces/user.interfaces'
 
@@ -7,6 +8,16 @@ export default class User_Services {
 		try {
 			const createdUser = new UserModel(userData)
 			await createdUser.save()
+
+			if (!createdUser.is_admin) {
+				const deliveryMan = await new DeliveryMan({
+					user: createdUser.id,
+				})
+
+				await deliveryMan.populate('user')
+
+				await deliveryMan.save()
+			}
 		} catch (error) {
 			throw error
 		}
