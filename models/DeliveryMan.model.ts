@@ -23,8 +23,9 @@ const DeliveryMan = new Schema({
     default: true,
   },
   user: { type: Schema.Types.ObjectId, ref: "User" },
+  packages: [{ type: Schema.Types.ObjectId, ref: "Package" }],
 });
 
-const Repartidor = model("Deliveryman", DeliveryMan);
+const DeliveryManModel = model("Deliveryman", DeliveryMan);
 
-export default Repartidor;
+export default DeliveryManModel;

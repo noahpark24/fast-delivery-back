@@ -13,6 +13,7 @@ export default class User_Services {
         const deliveryMan = await new DeliveryMan({
           user: createdUser,
         });
+        await deliveryMan.populate("user");
         await deliveryMan.save();
       }
     } catch (error) {
