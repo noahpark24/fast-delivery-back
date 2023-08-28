@@ -1,8 +1,6 @@
 import { Schema, model } from 'mongoose'
 
 const DeliveryMan = new Schema({
-	email: { type: String, required: true, unique: true },
-	password: { type: String, required: true },
 	current_deliveries: {
 		type: Number,
 		default: 0,
@@ -25,8 +23,9 @@ const DeliveryMan = new Schema({
 		default: true,
 	},
 	user: { type: Schema.Types.ObjectId, ref: 'User' },
+	packages: [{ type: Schema.Types.ObjectId, ref: 'Package' }],
 })
 
-const Repartidor = model('Deliveryman', DeliveryMan)
+const DeliveryManModel = model('Deliveryman', DeliveryMan)
 
-export default Repartidor
+export default DeliveryManModel

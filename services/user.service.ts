@@ -6,16 +6,14 @@ import { UserWithPasswordValidation } from '../interfaces/user.interfaces'
 export default class User_Services {
 	async createUser(userData: UserInterface) {
 		try {
-			const createdUser = new UserModel(userData)
+			const createdUser = await UserModel.create(userData)
 			await createdUser.save()
 
 			if (!createdUser.is_admin) {
 				const deliveryMan = await new DeliveryMan({
-					user: createdUser.id,
+					user: createdUser,
 				})
-
 				await deliveryMan.populate('user')
-
 				await deliveryMan.save()
 			}
 		} catch (error) {

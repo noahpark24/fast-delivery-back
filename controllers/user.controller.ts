@@ -27,7 +27,7 @@ const signup = asyncHandler(async (req: Request, res: Response) => {
 			responses.success(res, 'user created succesfuly', 201)
 		}
 	} catch (error) {
-		responses.error(res, 'login error ', 500)
+		responses.error(res, 'signup error:' + error, 500)
 	}
 })
 
