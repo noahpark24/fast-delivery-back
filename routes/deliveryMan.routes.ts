@@ -1,6 +1,6 @@
-import express from 'express';
-const router = express();
+import express from 'express'
+const router = express()
 
-router.post('/add-package');
+router.post('/add-package')
 
-export default router;
+export default router
