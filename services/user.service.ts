@@ -4,17 +4,29 @@ import { UserInterface } from '../interfaces/user.interfaces'
 import { UserWithPasswordValidation } from '../interfaces/user.interfaces'
 
 export default class User_Services {
+	private static instance: User_Services | null = null
+
+	private constructor() {}
+
+	static getInstance(): User_Services {
+		if (!User_Services.instance) {
+			User_Services.instance = new User_Services()
+		}
+		return User_Services.instance
+	}
+
 	async createUser(userData: UserInterface) {
 		try {
 			const createdUser = await UserModel.create(userData)
-			await createdUser.save()
 
 			if (!createdUser.is_admin) {
-				const deliveryMan = await new DeliveryMan({
-					user: createdUser,
+				const deliveryMan = new DeliveryMan({
+					user: createdUser._id,
 				})
-				await deliveryMan.populate('user')
+
 				await deliveryMan.save()
+
+				await deliveryMan.populate('user')
 			}
 		} catch (error) {
 			throw error

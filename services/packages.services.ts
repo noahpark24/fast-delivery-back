@@ -1,7 +1,18 @@
 import { PackageInterface } from '../interfaces/package.interfaces'
 import { Package } from '../models'
 
-export class packages_services {
+export class PackagesServices {
+	private static instance: PackagesServices | null = null
+
+	private constructor() {}
+
+	static getInstance(): PackagesServices {
+		if (!PackagesServices.instance) {
+			PackagesServices.instance = new PackagesServices()
+		}
+		return PackagesServices.instance
+	}
+
 	async getPackages() {
 		try {
 			const allPackages = await Package.find()
@@ -14,10 +25,10 @@ export class packages_services {
 
 	async getPackage(id: string) {
 		try {
-			const onePackage:PackageInterface | null = await Package.findById(id)
+			const onePackage: PackageInterface | null = await Package.findById(id)
 			return onePackage
 		} catch (error) {
-			console.log('Error getting packages: ', error)
+			console.log('Error getting package: ', error)
 			throw error
 		}
 	}
@@ -29,15 +40,17 @@ export class packages_services {
 			return newPackage
 		} catch (error) {
 			console.log('Error creating package: ', error)
-			throw error // Propagar el error para que el código que llama a esta función lo maneje.
+			throw error
 		}
 	}
-  
+
 	async deletePackage(id: string) {
 		try {
-			const deletedPackage = await Package.findByIdAndRemove(id, { select: '_id' })
+			const deletedPackage = await Package.findByIdAndRemove(id, {
+				select: '_id',
+			})
 			if (deletedPackage) {
-				return console.log('package removed')
+				console.log('Package removed')
 			} else {
 				console.log('Package not found')
 			}
@@ -46,8 +59,8 @@ export class packages_services {
 			throw error
 		}
 	}
-  
-	async editPackage(id:string, updatedData:PackageInterface) {
+
+	async editPackage(id: string, updatedData: PackageInterface) {
 		try {
 			const updatedPackage = await Package.findByIdAndUpdate(id, updatedData)
 			return updatedPackage

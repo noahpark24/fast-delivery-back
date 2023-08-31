@@ -14,7 +14,7 @@ import {
 } from '../interfaces/user.interfaces'
 
 const responses = new Responses()
-const user_service = new User_Services()
+const user_service = User_Services.getInstance()
 
 const signup = asyncHandler(async (req: Request, res: Response) => {
 	try {

@@ -16,7 +16,6 @@ export class Responses {
 	error(res: Response, message: string, statusCode?: number) {
 		return res.status(statusCode || 500).send({
 			error: message,
-      
 		})
 	}
 }
