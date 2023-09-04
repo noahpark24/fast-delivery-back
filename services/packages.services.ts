@@ -12,7 +12,7 @@ export class packages_services {
 		}
 	}
 
-	async getPackage(id: string) {
+	async getPackage(id: any) {
 		try {
 			const onePackage:PackageInterface | null = await Package.findById(id)
 			return onePackage
@@ -24,16 +24,19 @@ export class packages_services {
 
 	async createPackage(data: PackageInterface) {
 		try {
-			const newPackage = new Package(data)
-			await newPackage.save()
-			return newPackage
+			const newPackage = new Package(data);
+			console.log('Creating a new package...', newPackage);
+			await newPackage.save();
+			
+			console.log('Package created successfully.');
+			return newPackage;
 		} catch (error) {
-			console.log('Error creating package: ', error)
-			throw error // Propagar el error para que el código que llama a esta función lo maneje.
+			console.log('Error creating package: ', error);
+			throw error;
 		}
 	}
-  
-	async deletePackage(id: string) {
+	
+	async deletePackage(id: any) {
 		try {
 			const deletedPackage = await Package.findByIdAndRemove(id, { select: '_id' })
 			if (deletedPackage) {

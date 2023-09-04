@@ -5,7 +5,7 @@ import { Request, Response } from 'express'
 import { generateToken } from '../config/tokens'
 //services
 import { Responses } from '../services/responses'
-import User_Services from '../services/user.service'
+import User_Services from '../services/user.services'
 // interfaces
 import {
 	UserInterface,

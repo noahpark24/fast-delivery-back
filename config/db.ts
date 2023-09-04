@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
-
-const URL = 'mongodb://mongodb/fast-delivery-back'
+import dotenv from 'dotenv'
+dotenv.config()
+const URL = process.env.URL!
 
 const connectDB = async () => {
 	try {

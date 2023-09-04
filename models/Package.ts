@@ -14,13 +14,11 @@ const PackageSchema: Schema = new Schema({
 	},
 	creation_date: {
 		type: Date,
-		default: Date.now,
-		required: [true, 'Please enter the creation date'],
+		default: Date.now
 	},
 	entregado: {
 		type: Boolean,
 		default:false,
-		required: [true, 'Please enter the package status'],
 	},
 	package_weight: {
 		type: Number, 
@@ -33,6 +31,6 @@ const PackageSchema: Schema = new Schema({
 	}, 
 })
 
-const Package = mongoose.model<PackageInterface>('Package', PackageSchema)
+const PackageModel = mongoose.model<PackageInterface>('Package', PackageSchema)
 
-export default Package
+export default PackageModel
