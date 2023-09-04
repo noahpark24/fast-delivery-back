@@ -1,5 +1,8 @@
 module.exports = {
-	preset: 'ts-jest',
-	testEviroment: 'node',
-	testWatch: ['**/*.test.ts'],
-}
+  clearMocks: true,
+  coverageDirectory: "coverage",
+  preset: "ts-jest",
+  roots: ["<rootDir>"],
+  testEviroment: "node",
+  testWatch: ["**/*.test.ts"],
+};
