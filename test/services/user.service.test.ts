@@ -1,11 +1,14 @@
-import User_Services from "../../services/user.service";
+import User_Services from '../../services/user.services'
 import { afterAll, beforeAll, describe, expect, it } from "@jest/globals";
 import UserModel from "../../models/User.model";
 import mongoose from "mongoose";
+import dotenv from 'dotenv'
+dotenv.config();
+const mongo_url = process.env.MONGO_URL_TEST!;
 
 describe("User_Services - createUser", () => {
   beforeAll(
-    async () => await mongoose.connect("mongodb://localhost/fast-delivery-back")
+    async () => await mongoose.connect(mongo_url)
   );
 
   afterAll(async () => await mongoose.disconnect());
