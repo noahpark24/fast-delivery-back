@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { PackageInterface } from "../interfaces/package.interfaces";
-import { packages_services } from "../services/packages.services";
-import PackageModel from "../models/Package";
+import { PackagesServices } from "../services/packages.services";
+import PackageModel from "../models/Package.model";
 dotenv.config();
 const mongo_url = process.env.MONGO_URL_TEST!;
 
@@ -27,7 +27,7 @@ describe("packages_services", () => {
       package_weight: 1.5,
       additional_information: "Información adicional de prueba",
     };
-    const packageServices = new packages_services();
+    const packageServices = PackagesServices.getInstance();
 
     const createdPackage = await packageServices.createPackage(newPackageData);
 
@@ -43,13 +43,13 @@ describe("packages_services", () => {
       package_weight: 1.5,
       additional_information: "Información adicional de prueba",
     };
-    const packageServices = new packages_services();
+    const packageServices = PackagesServices.getInstance();
     const createdPackage = await packageServices.createPackage(newPackageData);
 
-    const retrievedPackage = await packageServices.getPackage(createdPackage.id);
+    const retrievedPackage = await packageServices.getPackage(createdPackage._id);
 
     expect(retrievedPackage).toBeDefined();
-    expect(retrievedPackage?.id).toEqual(createdPackage.id);
+    expect(retrievedPackage?._id).toEqual(createdPackage._id);
   });
 
   it("should delete a package by ID", async () => {
@@ -60,12 +60,12 @@ describe("packages_services", () => {
       package_weight: 1.5,
       additional_information: "Información adicional de prueba",
     };
-    const packageServices = new packages_services();
+    const packageServices = PackagesServices.getInstance();
     const createdPackage = await packageServices.createPackage(newPackageData);
 
     await packageServices.deletePackage(createdPackage.id);
 
-    const deletedPackage = await packageServices.getPackage(createdPackage.id);
+    const deletedPackage = await packageServices.getPackage(createdPackage._id);
 
     expect(deletedPackage).toBeNull();
   });
@@ -78,7 +78,7 @@ describe("packages_services", () => {
       package_weight: 1.5,
       additional_information: "Información adicional de prueba",
     };
-    const packageServices = new packages_services();
+    const packageServices = PackagesServices.getInstance();
     const createdPackage = await packageServices.createPackage(newPackageData);
 
     const updatedData: PackageInterface = {
@@ -93,7 +93,7 @@ describe("packages_services", () => {
   });
 
   it("should get all packages", async () => {
-    const packageServices = new packages_services();
+    const packageServices = PackagesServices.getInstance();
     const allPackages = await packageServices.getPackages();
 
     expect(allPackages).toBeDefined();

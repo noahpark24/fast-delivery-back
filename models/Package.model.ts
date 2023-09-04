@@ -14,11 +14,13 @@ const PackageSchema: Schema = new Schema({
 	},
 	creation_date: {
 		type: Date,
-		default: Date.now
+		default: Date.now,
+		required: [true, 'Please enter the creation date'],
 	},
 	entregado: {
 		type: Boolean,
 		default:false,
+		required: [true, 'Please enter the package status'],
 	},
 	package_weight: {
 		type: Number, 

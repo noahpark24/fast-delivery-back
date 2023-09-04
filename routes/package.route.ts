@@ -6,7 +6,6 @@ import {
 	editPackageById,
 	createPackage,
 } from '../controllers/package.controller'
-import validateUser from '../middlewares/auth'
 
 const router = express()
 
