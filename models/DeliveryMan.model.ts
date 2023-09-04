@@ -22,7 +22,6 @@ const DeliveryMan = new Schema({
 		type: Boolean,
 		default: true,
 	},
-	user: { type: Schema.Types.ObjectId, ref: 'User' },
 	packages: [{ type: Schema.Types.ObjectId, ref: 'Package' }],
 })
 

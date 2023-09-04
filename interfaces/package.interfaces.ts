@@ -1,10 +1,10 @@
+import mongoose from 'mongoose'
 export interface PackageInterface {
+	_id?: mongoose.Types.ObjectId;
 	client: string;
 	destination: string;
-	creation_date: Date;
+	creation_date?: Date;
 	package_status: boolean;
-	delivery_date: Date;
 	package_weight: number;
 	additional_information: string;
-	id: number;
 }
