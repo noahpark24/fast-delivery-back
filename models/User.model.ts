@@ -50,6 +50,10 @@ const User = new mongoose.Schema({
 		type: Boolean,
 		default: false,
 	},
+	deliveryManInfo: {
+		type: mongoose.Types.ObjectId,
+		ref: 'Deliveryman',
+	},
 })
 
 User.pre('save', function (next) {
@@ -60,11 +64,17 @@ User.pre('save', function (next) {
 		return next(new Error('Password is missing or not a string.'))
 	}
 
-	const salt: string = bcrypt.genSaltSync(8)
+	const salt: string = bcrypt.genSaltSync()
 	this.salt = salt
-	return bcrypt.hash(this.password, this.salt).then((hash) => {
-		this.password = hash
-	})
+	bcrypt
+		.hash(this.password, this.salt)
+		.then((hash) => {
+			this.password = hash
+			next()
+		})
+		.catch((err) => {
+			next(err)
+		})
 })
 
 User.methods.validatePassword = async function (password: string) {

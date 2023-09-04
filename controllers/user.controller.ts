@@ -14,7 +14,7 @@ import {
 } from '../interfaces/user.interfaces'
 
 const responses = new Responses()
-const user_service = new User_Services()
+const user_service = User_Services.getInstance()
 
 const signup = asyncHandler(async (req: Request, res: Response) => {
 	try {
@@ -27,7 +27,7 @@ const signup = asyncHandler(async (req: Request, res: Response) => {
 			responses.success(res, 'user created succesfuly', 201)
 		}
 	} catch (error) {
-		responses.error(res, 'login error ', 500)
+		responses.error(res, 'signup error:' + error, 500)
 	}
 })
 
@@ -54,10 +54,10 @@ const login = asyncHandler(async (req: Request, res: Response) => {
 			email: user.email,
 			is_admin: user.is_admin,
 			is_deleted: user.is_deleted,
+			deliveryManInfo: user.deliveryManInfo,
 		}
 
 		const token: string = generateToken(payload)
-		console.log('SOY EL TOKEN DEL CONTROLLER', token)
 
 		res.cookie('token', token)
 		responses.success(res, token, 200)

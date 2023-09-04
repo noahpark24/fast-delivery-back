@@ -1,3 +1,4 @@
-import User from './User'
-import Package from './Package'
-export { User , Package}
+import User from './User.model'
+import Package from './Package.model'
+import DeliveryMan from './DeliveryMan.model'
+export { User, Package, DeliveryMan }
