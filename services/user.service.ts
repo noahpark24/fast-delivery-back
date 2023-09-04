@@ -6,6 +6,7 @@ import { UserWithPasswordValidation } from "../interfaces/user.interfaces";
 export default class User_Services {
   private static instance: User_Services | null = null;
 
+
   static getInstance(): User_Services {
     if (!User_Services.instance) {
       User_Services.instance = new User_Services();
@@ -17,19 +18,18 @@ export default class User_Services {
     try {
       const createdUser = await UserModel.create(userData);
 
-      if (!createdUser.is_admin) {
-        const deliveryMan = new DeliveryMan({
-          user: createdUser._id,
-        });
+			if (!createdUser.is_admin) {
+				const newDeliveryMan = new DeliveryMan()
 
-        await deliveryMan.save();
+				await newDeliveryMan.save()
 
-        await deliveryMan.populate("user");
-      }
-    } catch (error) {
-      throw error;
-    }
-  }
+				createdUser.deliveryManInfo = newDeliveryMan._id
+			}
+			await createdUser.save()
+		} catch (error) {
+			throw error
+		}
+	}
 
   async findByUserEmail(email: string) {
     try {

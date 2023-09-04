@@ -54,10 +54,10 @@ const login = asyncHandler(async (req: Request, res: Response) => {
 			email: user.email,
 			is_admin: user.is_admin,
 			is_deleted: user.is_deleted,
+			deliveryManInfo: user.deliveryManInfo,
 		}
 
 		const token: string = generateToken(payload)
-		console.log('SOY EL TOKEN DEL CONTROLLER', token)
 
 		res.cookie('token', token)
 		responses.success(res, token, 200)

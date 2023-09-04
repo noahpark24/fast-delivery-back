@@ -1,3 +1,5 @@
+import mongoose from 'mongoose'
+
 export interface UserInterface {
 	id: number;
 	username: string;
@@ -9,6 +11,7 @@ export interface UserInterface {
 	salt: string;
 	is_deleted: boolean;
 	is_admin: boolean;
+	deliveryManInfo?: mongoose.Types.ObjectId;
 }
 
 export interface UserWithPasswordValidation extends UserInterface {
@@ -20,4 +23,5 @@ export interface UserPayload {
 	email: string;
 	is_admin: boolean;
 	is_deleted: boolean;
+	deliveryManInfo?: mongoose.Types.ObjectId;
 }
