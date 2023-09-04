@@ -8,7 +8,7 @@ const mongo_url = process.env.MONGO_URL_TEST!;
 
 describe("packages_services", () => {
   beforeAll(async () => {
-    await mongoose.connect(mongo_url);
+    await mongoose.connect("mongodb://localhost/fast-delivery-back");
   });
 
   afterAll(async () => {
@@ -46,7 +46,9 @@ describe("packages_services", () => {
     const packageServices = PackagesServices.getInstance();
     const createdPackage = await packageServices.createPackage(newPackageData);
 
-    const retrievedPackage = await packageServices.getPackage(createdPackage._id);
+    const retrievedPackage = await packageServices.getPackage(
+      createdPackage._id
+    );
 
     expect(retrievedPackage).toBeDefined();
     expect(retrievedPackage?._id).toEqual(createdPackage._id);
@@ -86,10 +88,12 @@ describe("packages_services", () => {
       package_status: true,
     };
 
-    const updatedPackage = await packageServices.editPackage(createdPackage.id, updatedData);
+    const updatedPackage = await packageServices.editPackage(
+      createdPackage.id,
+      updatedData
+    );
 
     expect(updatedPackage).toBeDefined();
-
   });
 
   it("should get all packages", async () => {
