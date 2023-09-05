@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import validator from 'validator'
 import { UserWithPasswordValidation } from '../interfaces/user.interfaces'
 
