@@ -36,10 +36,7 @@ export class PackagesServices {
 	async createPackage(data: PackageInterface) {
 		try {
 			const newPackage = new Package(data);
-			console.log('Creating a new package...', newPackage);
 			await newPackage.save();
-			
-			console.log('Package created successfully.');
 			return newPackage;
 		} catch (error) {
 			console.log('Error creating package: ', error);

@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { PackageInterface } from "../interfaces/package.interfaces";
-import { PackagesServices } from "../services/packages.services";
-import PackageModel from "../models/Package.model";
+import { PackageInterface } from "../../interfaces/package.interfaces";
+import { PackagesServices } from "../../services/packages.services";
+import PackageModel from "../../models/Package.model";
 dotenv.config();
 const mongo_url = process.env.MONGO_URL_TEST!;
 
@@ -21,7 +21,7 @@ describe("packages_services", () => {
 
   it("should create a new package", async () => {
     const newPackageData: PackageInterface = {
-      client: "Cliente de prueba",
+      client: "Cliente de prueba5",
       destination: "Dirección de prueba",
       package_status: false,
       package_weight: 1.5,
@@ -37,7 +37,7 @@ describe("packages_services", () => {
 
   it("should get a package by ID", async () => {
     const newPackageData: PackageInterface = {
-      client: "Cliente de prueba",
+      client: "Cliente de prueba5",
       destination: "Dirección de prueba",
       package_status: false,
       package_weight: 1.5,
@@ -56,7 +56,7 @@ describe("packages_services", () => {
 
   it("should delete a package by ID", async () => {
     const newPackageData: PackageInterface = {
-      client: "Cliente de prueba",
+      client: "Cliente de prueba5",
       destination: "Dirección de prueba",
       package_status: false,
       package_weight: 1.5,
@@ -74,7 +74,7 @@ describe("packages_services", () => {
 
   it("should edit a package", async () => {
     const newPackageData: PackageInterface = {
-      client: "Cliente de prueba",
+      client: "Cliente de prueba5",
       destination: "Dirección de prueba",
       package_status: false,
       package_weight: 1.5,
