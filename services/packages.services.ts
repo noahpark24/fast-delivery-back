@@ -1,37 +1,37 @@
-import { PackageInterface } from '../interfaces/package.interfaces'
-import { Package } from '../models'
+import { PackageInterface } from '../interfaces/package.interfaces';
+import { Package } from '../models';
 
 export class PackagesServices {
-	private static instance: PackagesServices | null = null
+  private static instance: PackagesServices | null = null;
 
   private constructor() {}
 
-	static getInstance(): PackagesServices {
-		if (!PackagesServices.instance) {
-			PackagesServices.instance = new PackagesServices()
-		}
-		return PackagesServices.instance
-	}
+  static getInstance(): PackagesServices {
+    if (!PackagesServices.instance) {
+      PackagesServices.instance = new PackagesServices();
+    }
+    return PackagesServices.instance;
+  }
 
-	async getPackages() {
-		try {
-			const allPackages = await Package.find()
-			return allPackages
-		} catch (error) {
-			console.log('Error getting packages: ', error)
-			throw error
-		}
-	}
+  async getPackages() {
+    try {
+      const allPackages = await Package.find();
+      return allPackages;
+    } catch (error) {
+      console.log('Error getting packages: ', error);
+      throw error;
+    }
+  }
 
-	async getPackage(id: any) {
-		try {
-			const onePackage: PackageInterface | null = await Package.findById(id)
-			return onePackage
-		} catch (error) {
-			console.log('Error getting package: ', error)
-			throw error
-		}
-	}
+  async getPackage(id: string) {
+    try {
+      const onePackage = await Package.findById(id);
+      return onePackage;
+    } catch (error) {
+      console.log('Error getting package: ', error);
+      throw error;
+    }
+  }
 
 	async createPackage(data: PackageInterface) {
 		try {
@@ -60,13 +60,13 @@ export class PackagesServices {
 		}
 	}
 
-	async editPackage(id: string, updatedData: PackageInterface) {
-		try {
-			const updatedPackage = await Package.findByIdAndUpdate(id, updatedData)
-			return updatedPackage
-		} catch (error) {
-			console.log('Error editing package: ', error)
-			throw error
-		}
-	}
+  async editPackage(id: string, updatedData: PackageInterface) {
+    try {
+      const updatedPackage = await Package.findByIdAndUpdate(id, updatedData);
+      return updatedPackage;
+    } catch (error) {
+      console.log('Error editing package: ', error);
+      throw error;
+    }
+  }
 }

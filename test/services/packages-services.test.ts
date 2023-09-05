@@ -6,9 +6,9 @@ import PackageModel from "../../models/Package.model";
 dotenv.config();
 const mongo_url = process.env.MONGO_URL_TEST!;
 
-describe("packages_services", () => {
+describe('packages_services', () => {
   beforeAll(async () => {
-    await mongoose.connect("mongodb://localhost/fast-delivery-back");
+    await mongoose.connect('mongodb://localhost/fast-delivery-back');
   });
 
   afterAll(async () => {
@@ -19,13 +19,13 @@ describe("packages_services", () => {
     await PackageModel.deleteMany({});
   });
 
-  it("should create a new package", async () => {
+  it('should create a new package', async () => {
     const newPackageData: PackageInterface = {
-      client: "Cliente de prueba5",
-      destination: "Dirección de prueba",
+      client: 'Cliente de prueba',
+      destination: 'Dirección de prueba',
       package_status: false,
       package_weight: 1.5,
-      additional_information: "Información adicional de prueba",
+      additional_information: 'Información adicional de prueba',
     };
     const packageServices = PackagesServices.getInstance();
 
@@ -35,13 +35,13 @@ describe("packages_services", () => {
     expect(createdPackage.client).toBe(newPackageData.client);
   });
 
-  it("should get a package by ID", async () => {
+  it('should get a package by ID', async () => {
     const newPackageData: PackageInterface = {
-      client: "Cliente de prueba5",
-      destination: "Dirección de prueba",
+      client: 'Cliente de prueba5',
+      destination: 'Dirección de prueba',
       package_status: false,
       package_weight: 1.5,
-      additional_information: "Información adicional de prueba",
+      additional_information: 'Información adicional de prueba',
     };
     const packageServices = PackagesServices.getInstance();
     const createdPackage = await packageServices.createPackage(newPackageData);
@@ -54,13 +54,13 @@ describe("packages_services", () => {
     expect(retrievedPackage?._id).toEqual(createdPackage._id);
   });
 
-  it("should delete a package by ID", async () => {
+  it('should delete a package by ID', async () => {
     const newPackageData: PackageInterface = {
-      client: "Cliente de prueba5",
-      destination: "Dirección de prueba",
+      client: 'Cliente de prueba5',
+      destination: 'Dirección de prueba',
       package_status: false,
       package_weight: 1.5,
-      additional_information: "Información adicional de prueba",
+      additional_information: 'Información adicional de prueba',
     };
     const packageServices = PackagesServices.getInstance();
     const createdPackage = await packageServices.createPackage(newPackageData);
@@ -72,13 +72,13 @@ describe("packages_services", () => {
     expect(deletedPackage).toBeNull();
   });
 
-  it("should edit a package", async () => {
+  it('should edit a package', async () => {
     const newPackageData: PackageInterface = {
-      client: "Cliente de prueba5",
-      destination: "Dirección de prueba",
+      client: 'Cliente de prueba',
+      destination: 'Dirección de prueba',
       package_status: false,
       package_weight: 1.5,
-      additional_information: "Información adicional de prueba",
+      additional_information: 'Información adicional de prueba',
     };
     const packageServices = PackagesServices.getInstance();
     const createdPackage = await packageServices.createPackage(newPackageData);
@@ -96,7 +96,7 @@ describe("packages_services", () => {
     expect(updatedPackage).toBeDefined();
   });
 
-  it("should get all packages", async () => {
+  it('should get all packages', async () => {
     const packageServices = PackagesServices.getInstance();
     const allPackages = await packageServices.getPackages();
 
