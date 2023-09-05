@@ -24,7 +24,7 @@ describe('packages_services', () => {
     const newPackageData: PackageInterface = {
       client: 'Cliente de prueba',
       destination: 'Dirección de prueba',
-      package_status: false,
+      is_delivered: false,
       package_weight: 1.5,
       additional_information: 'Información adicional de prueba',
     };
@@ -40,7 +40,7 @@ describe('packages_services', () => {
     const newPackageData: PackageInterface = {
       client: 'Cliente de prueba',
       destination: 'Dirección de prueba',
-      package_status: false,
+      is_delivered: false,
       package_weight: 1.5,
       additional_information: 'Información adicional de prueba',
     };
@@ -48,18 +48,18 @@ describe('packages_services', () => {
     const createdPackage = await packageServices.createPackage(newPackageData);
 
     const retrievedPackage = await packageServices.getPackage(
-      createdPackage._id
+      createdPackage.id
     );
 
     expect(retrievedPackage).toBeDefined();
-    expect(retrievedPackage?._id).toEqual(createdPackage._id);
+    expect(retrievedPackage?.id).toEqual(createdPackage.id);
   });
 
   it('should delete a package by ID', async () => {
     const newPackageData: PackageInterface = {
       client: 'Cliente de prueba',
       destination: 'Dirección de prueba',
-      package_status: false,
+      is_delivered: false,
       package_weight: 1.5,
       additional_information: 'Información adicional de prueba',
     };
@@ -68,7 +68,7 @@ describe('packages_services', () => {
 
     await packageServices.deletePackage(createdPackage.id);
 
-    const deletedPackage = await packageServices.getPackage(createdPackage._id);
+    const deletedPackage = await packageServices.getPackage(createdPackage.id);
 
     expect(deletedPackage).toBeNull();
   });
@@ -77,7 +77,7 @@ describe('packages_services', () => {
     const newPackageData: PackageInterface = {
       client: 'Cliente de prueba',
       destination: 'Dirección de prueba',
-      package_status: false,
+      is_delivered: false,
       package_weight: 1.5,
       additional_information: 'Información adicional de prueba',
     };
@@ -86,7 +86,7 @@ describe('packages_services', () => {
 
     const updatedData: PackageInterface = {
       ...createdPackage.toObject(),
-      package_status: true,
+      is_delivered: true,
     };
 
     const updatedPackage = await packageServices.editPackage(

@@ -4,8 +4,7 @@ export interface PackageInterface {
   client: string;
   destination: string;
   creation_date?: Date;
-  package_status: boolean;
+  is_delivered: boolean;
   package_weight: number;
   additional_information: string;
-  is_delivered: boolean;
 }

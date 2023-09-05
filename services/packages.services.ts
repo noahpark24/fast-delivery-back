@@ -47,7 +47,7 @@ export class PackagesServices {
     }
   }
 
-  async deletePackage(id: any) {
+  async deletePackage(id: string) {
     try {
       const deletedPackage = await Package.findByIdAndRemove(id, {
         select: '_id',
