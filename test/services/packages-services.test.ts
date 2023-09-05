@@ -1,107 +1,107 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import { PackageInterface } from '../../interfaces/package.interfaces';
-import { PackagesServices } from '../../services/packages.services';
+import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+import { PackageInterface } from '../../interfaces/package.interfaces'
+import { PackagesServices } from '../../services/packages.services'
 
-import PackageModel from '../../models/Package.model';
-dotenv.config();
-const mongo_url = process.env.MONGO_URL_TEST!;
+import PackageModel from '../../models/Package.model'
+dotenv.config()
+const mongo_url = process.env.MONGO_URL_TEST!
 
 describe('packages_services', () => {
-  beforeAll(async () => {
-    await mongoose.connect('mongodb://localhost/fast-delivery-back');
-  });
+	beforeAll(async () => {
+		await mongoose.connect('mongodb://localhost/fast-delivery-back')
+	})
 
-  afterAll(async () => {
-    await mongoose.connection.close();
-  });
+	afterAll(async () => {
+		await mongoose.connection.close()
+	})
 
-  afterEach(async () => {
-    await PackageModel.deleteMany({});
-  });
+	afterEach(async () => {
+		await PackageModel.deleteMany({})
+	})
 
-  it('should create a new package', async () => {
-    const newPackageData: PackageInterface = {
-      client: 'Cliente de prueba',
-      destination: 'Dirección de prueba',
-      is_delivered: false,
-      package_weight: 1.5,
-      additional_information: 'Información adicional de prueba',
-    };
-    const packageServices = PackagesServices.getInstance();
+	it('should create a new package', async () => {
+		const newPackageData: PackageInterface = {
+			client: 'Cliente de prueba',
+			destination: 'Dirección de prueba',
+			is_delivered: false,
+			package_weight: 1.5,
+			additional_information: 'Información adicional de prueba',
+		}
+		const packageServices = PackagesServices.getInstance()
 
-    const createdPackage = await packageServices.createPackage(newPackageData);
+		const createdPackage = await packageServices.createPackage(newPackageData)
 
-    expect(createdPackage).toBeDefined();
-    expect(createdPackage.client).toBe(newPackageData.client);
-  });
+		expect(createdPackage).toBeDefined()
+		expect(createdPackage.client).toBe(newPackageData.client)
+	})
 
-  it('should get a package by ID', async () => {
-    const newPackageData: PackageInterface = {
-      client: 'Cliente de prueba',
-      destination: 'Dirección de prueba',
-      is_delivered: false,
-      package_weight: 1.5,
-      additional_information: 'Información adicional de prueba',
-    };
-    const packageServices = PackagesServices.getInstance();
-    const createdPackage = await packageServices.createPackage(newPackageData);
+	it('should get a package by ID', async () => {
+		const newPackageData: PackageInterface = {
+			client: 'Cliente de prueba',
+			destination: 'Dirección de prueba',
+			is_delivered: false,
+			package_weight: 1.5,
+			additional_information: 'Información adicional de prueba',
+		}
+		const packageServices = PackagesServices.getInstance()
+		const createdPackage = await packageServices.createPackage(newPackageData)
 
-    const retrievedPackage = await packageServices.getPackage(
-      createdPackage.id
-    );
+		const retrievedPackage = await packageServices.getPackage(
+			createdPackage.id
+		)
 
-    expect(retrievedPackage).toBeDefined();
-    expect(retrievedPackage?.id).toEqual(createdPackage.id);
-  });
+		expect(retrievedPackage).toBeDefined()
+		expect(retrievedPackage?.id).toEqual(createdPackage.id)
+	})
 
-  it('should delete a package by ID', async () => {
-    const newPackageData: PackageInterface = {
-      client: 'Cliente de prueba',
-      destination: 'Dirección de prueba',
-      is_delivered: false,
-      package_weight: 1.5,
-      additional_information: 'Información adicional de prueba',
-    };
-    const packageServices = PackagesServices.getInstance();
-    const createdPackage = await packageServices.createPackage(newPackageData);
+	it('should delete a package by ID', async () => {
+		const newPackageData: PackageInterface = {
+			client: 'Cliente de prueba',
+			destination: 'Dirección de prueba',
+			is_delivered: false,
+			package_weight: 1.5,
+			additional_information: 'Información adicional de prueba',
+		}
+		const packageServices = PackagesServices.getInstance()
+		const createdPackage = await packageServices.createPackage(newPackageData)
 
-    await packageServices.deletePackage(createdPackage.id);
+		await packageServices.deletePackage(createdPackage.id)
 
-    const deletedPackage = await packageServices.getPackage(createdPackage.id);
+		const deletedPackage = await packageServices.getPackage(createdPackage.id)
 
-    expect(deletedPackage).toBeNull();
-  });
+		expect(deletedPackage).toBeNull()
+	})
 
-  it('should edit a package', async () => {
-    const newPackageData: PackageInterface = {
-      client: 'Cliente de prueba',
-      destination: 'Dirección de prueba',
-      is_delivered: false,
-      package_weight: 1.5,
-      additional_information: 'Información adicional de prueba',
-    };
-    const packageServices = PackagesServices.getInstance();
-    const createdPackage = await packageServices.createPackage(newPackageData);
+	it('should edit a package', async () => {
+		const newPackageData: PackageInterface = {
+			client: 'Cliente de prueba',
+			destination: 'Dirección de prueba',
+			is_delivered: false,
+			package_weight: 1.5,
+			additional_information: 'Información adicional de prueba',
+		}
+		const packageServices = PackagesServices.getInstance()
+		const createdPackage = await packageServices.createPackage(newPackageData)
 
-    const updatedData: PackageInterface = {
-      ...createdPackage.toObject(),
-      is_delivered: true,
-    };
+		const updatedData: PackageInterface = {
+			...createdPackage.toObject(),
+			is_delivered: true,
+		}
 
-    const updatedPackage = await packageServices.editPackage(
-      createdPackage.id,
-      updatedData
-    );
+		const updatedPackage = await packageServices.editPackage(
+			createdPackage.id,
+			updatedData
+		)
 
-    expect(updatedPackage).toBeDefined();
-  });
+		expect(updatedPackage).toBeDefined()
+	})
 
-  it('should get all packages', async () => {
-    const packageServices = PackagesServices.getInstance();
-    const allPackages = await packageServices.getPackages();
+	it('should get all packages', async () => {
+		const packageServices = PackagesServices.getInstance()
+		const allPackages = await packageServices.getPackages()
 
-    expect(allPackages).toBeDefined();
-    expect(Array.isArray(allPackages)).toBe(true);
-  });
-});
+		expect(allPackages).toBeDefined()
+		expect(Array.isArray(allPackages)).toBe(true)
+	})
+})
