@@ -1,0 +1,11 @@
+paths:
+  /users/get-all-users:
+    get:
+      summary: Obtiene la lista de usuarios
+      responses:
+        '200':
+          description: Respuesta exitosa
+      content:
+        application/json:
+          schema:
+            $ref: './userSchema.yml'
