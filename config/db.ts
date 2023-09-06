@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import dotenv from 'dotenv'; //el dotenv es para la variable del .env de la url
 dotenv.config();
 const URL: string = process.env.URL || '';
 
