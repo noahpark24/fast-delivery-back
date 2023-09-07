@@ -1,11 +1,135 @@
-paths:
-  /user:
-    get:
-      summary: Obtiene la lista de paquetes
-      responses:
-        '200':
-          description: Respuesta exitosa
+#CREATE PACKAGE    ACOMODAR ESTE PORQUE LE TENGO QUE PASAR LOS DATOS REQUERIDOS PARA CREAR EL PACQUETEE
+
+/create/:
+  post:
+    summary: Create a package
+    description: Create a new package by providing the required data in the request body.
+    tags:
+      - Packages
+    requestBody:
+      description: JSON object containing package details.
+      required: true
       content:
         application/json:
           schema:
-            $ref: './pacakgesSchema.yml'
+            $ref: "packageSchema.yml"
+    responses:
+      "200":
+        description: Package created successfully. Returns the newly created package.
+        content:
+          application/json:
+            schema:
+            $ref: "packageSchema.yml"
+            #gepeto me dijo que le sacara ./ xq asi se asegura que la ruta sea relativa a su ubicacion y la encuentre sin problema.
+      "401":
+        description: Unauthorized (invalid or missing token).
+      "500":
+        description: Internal Server Error.
+
+#DELETE PACKAGE
+
+/delete/{packageId}:
+  delete:
+    summary: Delete a package
+    description: Delete a package by its unique ID.
+    tags:
+      - Packages
+    parameters:
+      - in: path
+        name: packageId
+        required: true
+        description: The ID of the package to delete.
+        schema:
+          type: string
+          #no se si aca tengo que volver a poner la ruta al schema o dejo esto que dice string, aunque no se si deberia cambiarlo a obejct
+    responses:
+      "204":
+        description: Package delete successfully. No content is returned.
+      "401":
+        description: Unauthorized. The request lacks a valid or missing token.
+      "500":
+        description: Internal Server Error.
+
+#EDIT PACKAGE
+
+/edit/{packageId}:
+  put:
+    summary: Edit a package
+    description: Edit a package by its unique ID.
+    tags:
+      - Packages
+    parameters:
+      - in: path
+        name: packageId
+        required: true
+        description: The ID of the package to edit.
+        schema:
+          type: string
+    requestBody:
+      description: JSON object containing package details to be updated.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "./packageSchema.yml"
+    responses:
+      "200":
+        description: Package edited successfully. Returns the newly edited package.
+        content:
+          application/json:
+            schema:
+            $ref: "./packageSchema.yml"
+      "401":
+        description: Unauthorized. The request lacks a valid or missing token.
+      "500":
+        description: Internal Server Error.
+
+#GET ALL PACKAGES
+
+/all/:
+  get:
+    summary: Get all packages
+    description: Get all packages.
+    tags:
+      - Packages
+    responses:
+      "200":
+        description: Get packages successfully. Returns all packages.
+        content:
+          application/json:
+            schema:
+            type: array
+            $ref: "./packageSchema.yml"
+          
+      "401":
+        description: Unauthorized (invalid or missing token).
+      "500":
+        description: Internal Server Error.
+
+#GET PACKAGE BY ID
+
+/{packageId}/:
+  get:
+    summary: Get package by id
+    description: Get a package by its unique ID.
+    tags:
+      - Packages
+    parameters:
+      - in: path
+        name: packageId
+        required: true
+        description: The ID of the package to get.
+        schema:
+          type: string
+    responses:
+      "200":
+        description: Get package successfully. Returns package by id.
+        content:
+          application/json:
+            schema:
+            $ref: "./packageSchema.yml"
+          
+      "401":
+        description: Unauthorized (invalid or missing token).
+      "500":
+        description: Internal Server Error.

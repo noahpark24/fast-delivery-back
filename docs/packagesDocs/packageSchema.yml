@@ -1,0 +1,31 @@
+components: 
+  schemas:  
+    Package: 
+      type: object
+      properties: 
+        client: 
+          type: string
+          description: pepe 
+        destination: 
+          type: string
+          description: pepe 
+        creation_date: 
+          type: string
+          format: date-time
+          description: pepe 
+        is_delivered: 
+          type: string
+          description: pepe 
+        package_weight:
+          type: number
+          description: pepe 
+        additional_information:
+          type: string
+          nullable: true
+          description: pepe 
+      required:
+        - client
+        - destination 
+        - creation_date 
+        - is_delivered
+        - package_weight
