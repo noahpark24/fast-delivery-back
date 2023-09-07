@@ -1,0 +1,11 @@
+paths:
+  /user:
+    get:
+      summary: Obtiene la lista de paquetes
+      responses:
+        '200':
+          description: Respuesta exitosa
+      content:
+        application/json:
+          schema:
+            $ref: './pacakgesSchema.yml'

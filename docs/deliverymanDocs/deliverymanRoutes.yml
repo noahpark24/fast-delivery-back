@@ -1,0 +1,82 @@
+#TAKE PACKAGE
+
+/take-package/{packageId}:
+  post:
+    summary: Take a package
+    description: Allows An Authenticated User (with token) To Grab A Packet By His ID.
+    tags:
+      - Deliveryman
+    parameters:
+      - in: path
+        name: packageId
+        required: true
+        description: The ID of the package to take.
+        schema:
+          type: string
+    responses:
+      '200':
+        description: Package taken successfully.
+      '401':
+        description: Unauthorized (invalid or missing token).
+      '500':
+        description: Internal Server Error.
+
+#TAKED PACKAGES
+/taked-packages:
+  get:
+    summary: Returns An Array Of Objects With The Complete Data Of The Packages Taken
+    description: Allows An Authenticated User (with token) To See His Taken Packages List
+    tags:
+      - Deliveryman
+    responses:
+      '200':
+        description: Returns The Array Of Objects With The Taken Packages Info.
+
+      '401':
+        description: Unauthorized (invalid or missing token).
+      '500':
+        description: Internal Server Error.
+
+#MARK PACKAGE AS DELIVERED
+/mark-delivered-package/{packageId}:
+  post:
+    summary: Marks A Taken Package As Delivered
+    description: Allows A Deliveryman To Mark A Package As Delivered
+    tags:
+      - Deliveryman
+    parameters:
+      - in: path
+        name: packageId
+        required: true
+        description: The ID of the package to mark as delivered.
+        schema:
+          type: string
+    responses:
+      '200':
+        description: Package marked as delivered
+      '401':
+        description: Unauthorized (invalid or missing token).
+      '500':
+        description: Internal Server Error.
+
+#UNTAKE PACKAGE
+/untake-package/{packageId}:
+  delete:
+    summary: Untakes A Taked Package
+    description: Removes A Package From The Packages Array
+    tags:
+      - Deliveryman
+    parameters:
+      - in: path
+        name: packageId
+        required: true
+        description: The ID of the package to delete
+        schema:
+          type: string
+    responses:
+      '200':
+        description: Package Untaked Successfully
+      '401':
+        description: Unauthorized (invalid or missing token).
+      '500':
+        description: Internal Server Error.
