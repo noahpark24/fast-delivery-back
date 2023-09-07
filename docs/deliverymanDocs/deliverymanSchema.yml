@@ -1,0 +1,26 @@
+components:
+  schemas:
+    DeliveryMan:
+      type: object
+      properties:
+        current_deliveries:
+          type: integer
+          default: 0
+          maximum: 10
+        active:
+          type: boolean
+          default: false
+        drinked_alcohol:
+          type: boolean
+          default: false
+        taked_drugs:
+          type: boolean
+          default: false
+        sleeped_well:
+          type: boolean
+          default: true
+        packages:
+          type: array
+          items:
+            type: string
+            format: objectId

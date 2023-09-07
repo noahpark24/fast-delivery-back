@@ -1,13 +1,15 @@
+import cors from 'cors';
 import express from 'express';
 import bodyParser from 'body-parser';
-import routes from './routes/index';
-import connectDB from './config/db';
 import cookieParser from 'cookie-parser';
-import cors from 'cors';
+//routes
+import routes from './routes/index';
+//db
+import connectDB from './config/db';
+//swagger
 import swaggerUi from 'swagger-ui-express';
-import fs from 'fs'; //fs sirve pa leer YML
-import * as YAML from 'yamljs';
-import path from 'path';
+import swaggerConfig from './docs/swagger';
+import swaggerJSDoc from 'swagger-jsdoc';
 const server = express();
 
 //middlewares
@@ -17,10 +19,11 @@ server.use(express.json());
 server.use(cookieParser());
 server.use('/api', routes);
 //Swagger config
-const swaggerDocument = YAML.parse(
-  fs.readFileSync(path.resolve(__dirname, './docs/swagger.yml'), 'utf8')
+server.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerJSDoc(swaggerConfig))
 );
-server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 connectDB();
 server.listen(3001, '0.0.0.0', () => {
