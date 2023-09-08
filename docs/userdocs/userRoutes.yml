@@ -1,11 +1,68 @@
-paths:
-  /users/get-all-users:
-    get:
-      summary: Obtiene la lista de usuarios
-      responses:
-        '200':
-          description: Respuesta exitosa
+# CREATE USER
+/api/users/signup:
+  post:
+    summary: Create new user
+    description: Creates a new user in the database.
+    tags:
+      - User
+    requestBody:
+      description: Json object that contains user information
+      required: true
       content:
         application/json:
           schema:
-            $ref: './userSchema.yml'
+            $ref: "#/components/schemas/userSchema"
+          example:
+            email: user@test.com
+            password: 1234Test
+            name: userName
+            last_name: userLastName
+    responses:
+      '201':
+        description: User created successfully.
+      '400':
+        description: Bad Request
+      '404':
+        description: Not Found
+      '500':
+        description: Internal Server Error.
+
+# LOGIN USER
+/api/users/login:
+  post:
+    summary: User login
+    description: Allows a user to log in through an email and password.
+    tags: 
+      - User
+    requestBody:
+      description: Json object with user data
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/userSchema'
+            example:
+              email: user@test.com
+              password: 1234Test
+    responses:
+      '200':
+        description: ok
+      '401':
+        description: Unauthorized - Invalid username or password.
+      '500':
+        description: Internal Server Error.
+
+# LOGOUT USER
+/api/users/logout:
+  post:
+    summary: User logout
+    description: Allows a user to log out.
+    tags: 
+      - User
+    responses:
+      '200':
+        description: Successful logout.
+      '401':
+        description: Unauthorized - Invalid token.
+      '500':
+        description: Internal Server Error.
