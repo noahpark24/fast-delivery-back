@@ -13,7 +13,6 @@ const PackageSchema: Schema = new Schema({
 	creation_date: {
 		type: Date,
 		default: Date.now,
-		required: [true, 'Please enter the creation date'],
 	},
 	is_delivered: {
 		type: Boolean,

@@ -1,31 +1,32 @@
-components: 
-  schemas:  
-    Package: 
+components:
+  schemas:
+    Packages:
       type: object
-      properties: 
-        client: 
+      properties:
+        client:
           type: string
-          description: pepe 
-        destination: 
+          description: name of the people who own the package.
+        destination:
           type: string
-          description: pepe 
-        creation_date: 
+          description: direction for the package to be delivered.
+        creation_date:
           type: string
+          nullable: true
           format: date-time
-          description: pepe 
-        is_delivered: 
-          type: string
-          description: pepe 
+          description: date of package creation.
+        is_delivered:
+          type: boolean
+          default: false
+          description: if the package is delivered, its true, if not, its false.
         package_weight:
           type: number
-          description: pepe 
+          description: package weight in numerical values.
         additional_information:
           type: string
           nullable: true
-          description: pepe 
+          description: any extra details such as the house's location, a contact phone number, or any relevant information that can assist the deliveryMan.
       required:
         - client
-        - destination 
-        - creation_date 
+        - destination
         - is_delivered
         - package_weight
