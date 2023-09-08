@@ -1,0 +1,36 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          required: true
+          description: user
+          example: user@test.com
+        password:
+          type: string
+          required: true
+          description: password
+          example: userPassword
+        salt:
+          type: string
+        name:
+          type: string
+          required: true
+          default: userName
+        last_name:
+          type: string
+          required: true
+          default: userLastName
+        profile_img:
+          type: string
+        is_deleted:
+          type: boolean
+          default: false
+        is_admin:
+          type: boolean
+          default: false
+        token:
+          type: object
+
