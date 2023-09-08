@@ -1,6 +1,6 @@
 #CREATE PACKAGE    ACOMODAR ESTE PORQUE LE TENGO QUE PASAR LOS DATOS REQUERIDOS PARA CREAR EL PACQUETEE
 
-/create/:
+/api/packages/create/:
   post:
     summary: Create a package
     description: Create a new package by providing the required data in the request body.
@@ -12,15 +12,22 @@
       content:
         application/json:
           schema:
-            $ref: "packageSchema.yml"
+            $ref: "#/components/schemas/Packages"
+          example:
+            client: pepe
+            destination: Destino Ejemplo
+            is_delivered: false
+            package_weight: 2.5
+            additional_information: Información adicional
     responses:
-      "200":
+      "201":
         description: Package created successfully. Returns the newly created package.
         content:
           application/json:
             schema:
-            $ref: "packageSchema.yml"
-            #gepeto me dijo que le sacara ./ xq asi se asegura que la ruta sea relativa a su ubicacion y la encuentre sin problema.
+              $ref: "#/components/schemas/Packages"
+          example: "Package created successfullYYYYYy"
+        #ESTO NO ESTA FUNCIONANDO LO DEL EXAMPLE!!!!!!!!!
       "401":
         description: Unauthorized (invalid or missing token).
       "500":
@@ -28,7 +35,7 @@
 
 #DELETE PACKAGE
 
-/delete/{packageId}:
+/api/packages/delete/{packageId}:
   delete:
     summary: Delete a package
     description: Delete a package by its unique ID.
@@ -41,10 +48,14 @@
         description: The ID of the package to delete.
         schema:
           type: string
-          #no se si aca tengo que volver a poner la ruta al schema o dejo esto que dice string, aunque no se si deberia cambiarlo a obejct
+        example: 64fb75ea569e606bc40576e8
     responses:
-      "204":
+      "200":
         description: Package delete successfully. No content is returned.
+        content:
+          text/plain:
+            example: Package deleted successfully
+            #SI LO PONGO COMO APPLICATION/JSON, EN EL SWAGGER UI ME LO PONE ENTRE "" Y DE COLOR VERDE, PERO ASI EN BLANCO
       "401":
         description: Unauthorized. The request lacks a valid or missing token.
       "500":
@@ -52,7 +63,7 @@
 
 #EDIT PACKAGE
 
-/edit/{packageId}:
+/api/packages/edit/{packageId}:
   put:
     summary: Edit a package
     description: Edit a package by its unique ID.
@@ -65,20 +76,26 @@
         description: The ID of the package to edit.
         schema:
           type: string
+        example: 64fb75ea569e606bc40576e8
     requestBody:
-      description: JSON object containing package details to be updated.
+      description: JSON object containing package details to be updated.You can specify only the data you want to edit.
       required: true
       content:
         application/json:
           schema:
-            $ref: "./packageSchema.yml"
+            $ref: "#/components/schemas/Packages"
+          example:
+            client: "Juan"
+            destination: "Destino Ejemplo"
+            is_delivered: false
+            package_weight: 2.5
+            additional_information: "Información adicional"
     responses:
       "200":
         description: Package edited successfully. Returns the newly edited package.
         content:
           application/json:
-            schema:
-            $ref: "./packageSchema.yml"
+            example: Package edited successfully
       "401":
         description: Unauthorized. The request lacks a valid or missing token.
       "500":
@@ -86,7 +103,7 @@
 
 #GET ALL PACKAGES
 
-/all/:
+/api/packages/all/:
   get:
     summary: Get all packages
     description: Get all packages.
@@ -98,9 +115,9 @@
         content:
           application/json:
             schema:
-            type: array
-            $ref: "./packageSchema.yml"
-          
+              type: array
+              $ref: "#/components/schemas/Packages"
+
       "401":
         description: Unauthorized (invalid or missing token).
       "500":
@@ -108,10 +125,10 @@
 
 #GET PACKAGE BY ID
 
-/{packageId}/:
+/api/packages/{packageId}/:
   get:
     summary: Get package by id
-    description: Get a package by its unique ID.
+    description: Get package by its unique ID.
     tags:
       - Packages
     parameters:
@@ -121,14 +138,15 @@
         description: The ID of the package to get.
         schema:
           type: string
+        example: 64fb775bc0056d3359578e38
     responses:
       "200":
         description: Get package successfully. Returns package by id.
         content:
           application/json:
             schema:
-            $ref: "./packageSchema.yml"
-          
+              $ref: "#/components/schemas/Packages"
+
       "401":
         description: Unauthorized (invalid or missing token).
       "500":

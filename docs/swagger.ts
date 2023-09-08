@@ -14,6 +14,7 @@ const options = {
       url: "http://localhost:3001",
     },
   ],
+  basePath: "/api",
   apis: [
     path.resolve(__dirname, "./deliverymanDocs/deliverymanRoutes.yml"),
     path.resolve(__dirname, "./deliverymanDocs/deliverymanSchema.yml"),
