@@ -20,6 +20,8 @@ const options = {
     path.resolve(__dirname, "./deliverymanDocs/deliverymanSchema.yml"),
     path.resolve(__dirname, "./packagesDocs/packageRoutes.yml"),
     path.resolve(__dirname, "./packagesDocs/packageSchema.yml"),
+    path.resolve(__dirname, "./userDocs/userRoutes.yml"),
+    path.resolve(__dirname, "./userDocs/userSchema.yml")
   ],
 };
 
