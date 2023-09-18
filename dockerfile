@@ -12,6 +12,6 @@ ENV URL=$URL
 
 EXPOSE 3001
 
-CMD ["npm", "run","start"] 
+CMD ["npm", "run","dev"] 
 
 # CMD ["npm", "run build && npm start"]
