@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo
+    container_name: fast-delivery-db
+    ports:
+      - '27017:27017'
+
+  backend:
+    build: .
+    container_name: fast-delivery-backend
+    ports:
+      - '3001:3001'
+    environment:
+      - MONGO_URL_TEST=${MONGO_URL_TEST}
+      - MONGO_PASSWORD_TEST=${MONGO_PASSWORD_TEST}
+      - URL=${URL}
+    depends_on:
+      - mongodb

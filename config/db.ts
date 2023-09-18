@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv'; //el dotenv es para la variable del .env de la url
-dotenv.config();
-const URL: string = process.env.URL || '';
+import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+dotenv.config()
+const URL: string = process.env.URL || ''
 
 const connectDB = async () => {
 	try {

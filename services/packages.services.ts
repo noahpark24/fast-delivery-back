@@ -14,32 +14,32 @@ export class PackagesServices {
 	}
 
 	async getPackages() {
-			const allPackages = await Package.find()
-			return allPackages
+		const allPackages = await Package.find()
+		return allPackages
 	}
 
 	async getPackage(id: string) {
-			const onePackage = await Package.findById(id)
-			return onePackage
+		const onePackage = await Package.findById(id)
+		return onePackage
 	}
 
 	async createPackage(data: PackageInterface) {
-			const newPackage = new Package(data);
-			await newPackage.save();
-			return newPackage;
+		const newPackage = new Package(data)
+		await newPackage.save()
+		return newPackage
 	}
 	
 	async deletePackage(id: string) {
-			const deletedPackage = await Package.findByIdAndRemove(id, {
-				select: '_id',
-			})
-			if (!deletedPackage) {
-				console.log('Package not found')
+		const deletedPackage = await Package.findByIdAndRemove(id, {
+			select: '_id',
+		})
+		if (!deletedPackage) {
+			console.log('Package not found')
 		}
 	}
 
 	async editPackage(id: string, updatedData: PackageInterface) {
-			const updatedPackage = await Package.findByIdAndUpdate(id, updatedData)
-			return updatedPackage
+		const updatedPackage = await Package.findByIdAndUpdate(id, updatedData)
+		return updatedPackage
 	}
 }
