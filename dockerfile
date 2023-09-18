@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+ENV URL=$URL
+
 EXPOSE 3001
 
-CMD ["npm", "start"]
+CMD ["npm", "run build && npm start"]
