@@ -17,3 +17,5 @@ services:
       - URL=${URL}
     depends_on:
       - mongodb
+    volumes:
+      - .:/back

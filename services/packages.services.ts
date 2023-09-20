@@ -43,10 +43,12 @@ export class PackagesServices {
     return updatedPackage;
   }
 
-  async addSeederPackages(productData: any) {
+  async addSeederPackages(productData: PackageInterface[]) {
     const existingProducts = await Package.find();
     if (existingProducts.length === 0) {
-      await Package.insertMany(productData);
+      for (const product of productData) {
+        await Package.create(product);
+      }
       console.log('Seeding complete!');
     } else {
       console.log('Products already exist in the database.');
