@@ -6,6 +6,10 @@ const PackageSchema: Schema = new Schema({
     type: String,
     required: [true, 'Please enter client name'],
   },
+  quantity: {
+    type: Number,
+    required: [true, 'Please enter quantity'],
+  },
   destination: {
     type: String,
     required: [true, 'Please enter a destination for your package'],
