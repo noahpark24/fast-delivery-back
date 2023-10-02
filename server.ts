@@ -16,7 +16,13 @@ const server = express();
 dotenv.config();
 
 //middlewares
-server.use(cors({ origin: process.env.CORS_URL, credentials: true }));
+server.use(
+  cors({
+    origin: process.env.CORS_URL,
+    credentials: true,
+    methods: ["GET", "POST", "DELETE", "OPTIONS"],
+  })
+);
 server.use(bodyParser.json());
 server.use(express.json());
 server.use(cookieParser());
