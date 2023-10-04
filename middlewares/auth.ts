@@ -19,6 +19,7 @@ function validateUser(req: Request, res: Response, next: NextFunction) {
 
 	const { user }: string | any = validateToken(token)
 
+
 	if (!user) return res.sendStatus(401)
 
 	req.user = user
