@@ -10,10 +10,19 @@ import connectDB from "./config/db";
 import swaggerUi from "swagger-ui-express";
 import swaggerConfig from "./docs/swagger";
 import swaggerJSDoc from "swagger-jsdoc";
+import dotenv from "dotenv";
+
 const server = express();
+dotenv.config();
 
 //middlewares
-server.use(cors({ origin: "http://localhost:3000", credentials: true }));
+server.use(
+  cors({
+    origin: process.env.CORS_URL,
+    credentials: true,
+    methods: ["GET", "POST", "DELETE", "OPTIONS"],
+  })
+);
 server.use(bodyParser.json());
 server.use(express.json());
 server.use(cookieParser());

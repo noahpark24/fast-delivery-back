@@ -69,6 +69,16 @@ export const untake_package = asyncHandler(
   }
 );
 
+export const get_all_deliverymans = asyncHandler(
+  async (req: Request, res: Response) => {
+    try {
+      const result = await deliveryManServices.getAllDeliverymans();
+      responses.sendDeliverymans(res, result, 200);
+    } catch (error) {
+      responses.error(res, error, 500);
+    }
+  }
+);
 // export const untake_all_package = asyncHandler(
 //   async (req: Request, res: Response) => {
 //     try {

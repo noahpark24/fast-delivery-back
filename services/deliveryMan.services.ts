@@ -1,8 +1,9 @@
-import { Types } from "mongoose";
-import DeliveryManModel from "../models/DeliveryMan.model";
+import { Types } from "mongoose";;
+import DeliveryManModel from "../models/DeliveryMan.model";;
 import Package from "../models/Package.model";
 import { PackagesServices } from "./packages.services";
-const packages_service = PackagesServices.getInstance();
+const packages_service = PackagesServices.getInstance();;
+import UserModel from '../models/User.model';
 
 export default class DeliveryManService {
   private static instance: DeliveryManService | null = null;
@@ -25,7 +26,18 @@ export default class DeliveryManService {
       throw error;
     }
   }
+  async getAllDeliverymans() {
+    const registeredDeliverymans = await DeliveryManModel.find();
 
+    const nonAdminUsers = await UserModel.find({ is_admin: false });
+
+    const combinedResults = {
+      deliverymans: registeredDeliverymans,
+      users: nonAdminUsers,
+    };
+
+    return combinedResults;
+  }
   async takePackage(packageId: string, deliverymanId: string) {
     try {
       const deliveryman = await this.findDeliveryManById(deliverymanId);
