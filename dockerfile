@@ -1,17 +1,15 @@
-FROM node:alpine
+FROM node:18-alpine
 
 WORKDIR /back
 
-COPY package*.json ./
+COPY . .
 
 RUN npm install
 
-COPY . .
+RUN npm run build
 
-ENV URL=$URL
+EXPOSE 80
 
-EXPOSE 3001
-
-CMD ["npm", "run","dev"] 
+CMD ["npm", "start"]
 
 # CMD ["npm", "run build && npm start"]

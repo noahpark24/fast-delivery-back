@@ -20,12 +20,15 @@ server.use(
   cors({
     origin: process.env.CORS_URL,
     credentials: true,
-    methods: ["GET", "POST", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "DELETE", "OPTIONS", "PUT"],
   })
 );
 server.use(bodyParser.json());
 server.use(express.json());
 server.use(cookieParser());
+server.get("/ping", (req, res) => {
+  res.sendStatus(200);
+});
 server.use("/api", routes);
 //Swagger config
 server.use(
@@ -35,7 +38,7 @@ server.use(
 );
 
 connectDB();
-server.listen(3001, "0.0.0.0", async () => {
+server.listen(80, "0.0.0.0", async () => {
   console.log("listening");
 });
 
