@@ -1,77 +1,41 @@
-name: Deploy to AWS Lightsail
+name: CI/CD with Docker and Lightsail
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v2
+      - name: Set up Docker
+        uses: docker/setup-docker@v2
         with:
-          node-version: "18"
-
-      - name: Install dependencies
-        run: npm install
-
-      # - name: Run tests
-      #   run: npm run test
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY_SECRET }}
-          aws-region: us-east-1
-
-      - name: Install AWS Lightsail Plugin
-        run: curl "https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "/usr/local/bin/lightsailctl" && sudo chmod +x /usr/local/bin/lightsailctl
+          docker-version: 24.0.6
 
       - name: Build Docker Image
-        run: docker build -t fast-delivery .
-
-      - name: Push image to AWS Lightsail
-        run: >
-          aws lightsail push-container-image --region us-east-1 --service-name fast-delivery-back --label latest --image fast-delivery-back:latest
-          > push-output.txt
-
-      - name: Trigger a new deploy in AWS Lightsail
         run: |
-          IMAGE_REFERENCE=$(grep 'Refer to this image as' push-output.txt | awk -F'"' '{print $2}')
-          aws lightsail create-container-service-deployment --region us-east-1 --service-name staffys-api --containers '{
-            "staffys-api-container": {
-              "image": "'"$IMAGE_REFERENCE"'",
-              "environment": {
-                "NODE_ENV": "${{ secrets.NODE_ENV }}",
-                "PORT": "${{ secrets.PORT }}",
-                "TESTING_PORT": "${{ secrets.TESTING_PORT }}",
-                "JWT_SECRET": "${{ secrets.JWT_SECRET }}",
-                "MONGO_URI": "${{ secrets.MONGO_URI }}",
-                "BACKOFFICE_CLIENT_HOST": "${{ secrets.BACKOFFICE_CLIENT_HOST }}",
-                "DELIVERY_CLIENT_HOST": "${{ secrets.DELIVERY_CLIENT_HOST }}",
-                "BACKOFFICE_CLIENT_HOST_LOCAL": "${{ secrets.BACKOFFICE_CLIENT_HOST_LOCAL }}",
-                "DELIVERY_CLIENT_HOST_LOCAL": "${{ secrets.DELIVERY_CLIENT_HOST_LOCAL }}",
-                "GOOGLE_API_KEY": "${{ secrets.GOOGLE_API_KEY }}",
-                "OAUTH2_EMAIL": "${{ secrets.OAUTH2_EMAIL }}",
-                "OAUTH2_CLIENT_ID": "${{ secrets.OAUTH2_CLIENT_ID }}",
-                "OAUTH2_CLIENT_SECRET": "${{ secrets.OAUTH2_CLIENT_SECRET }}",
-                "OAUTH2_REFRESH_TOKEN": "${{ secrets.OAUTH2_REFRESH_TOKEN }}",
-                "AWS_BUCKET_NAME": "${{ secrets.AWS_BUCKET_NAME }}",
-                "AWS_BUCKET_REGION": "${{ secrets.AWS_BUCKET_REGION }}",
-                "AWS_S3_PUBLIC_KEY": "${{ secrets.AWS_S3_PUBLIC_KEY }}",
-                "AWS_S3_SECRET_KEY": "${{ secrets.AWS_S3_SECRET_KEY }}"
-              },
-              "ports": {
-                "80": "HTTP"
-              }
-            }
-          }' --public-endpoint '{ "containerName": "staffys-api-container", "containerPort": 80, "healthCheck": { "path": "/ping" } }'
-        shell: bash
+          docker build -t back-backend:latest .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker tag back-backend:latest ${{ secrets.DOCKER_USERNAME }}/fast-delivery-back:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/fast-delivery-back:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Docker
+        uses: docker/setup-docker@v2
+        with:
+          docker-version: 24.0.6
+
+      - name: Deploy to Lightsail
+        run: |
+          docker pull ${{ secrets.DOCKER_USERNAME }}/fast-delivery-back:latest
+          docker-compose build
+          docker-compose up
