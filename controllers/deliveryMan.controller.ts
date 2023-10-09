@@ -33,7 +33,6 @@ export const mark_delivered = asyncHandler(
         deliveryManId,
         packageId
         );
-        console.log('desp del await');
       responses.success(res, "Package marked as delivered", 200);
     } catch (error) {
       responses.error(res, error, 500);
@@ -79,15 +78,16 @@ export const get_all_deliverymans = asyncHandler(
     }
   }
 );
-// export const untake_all_package = asyncHandler(
-//   async (req: Request, res: Response) => {
-//     try {
-//       const deliveryManId = req.user.deliveryManInfo?.toString() || "";
-//       const { packageId } = req.params;
-//       await deliveryManServices.untakeAllPackage(deliveryManId, packageId);
-//       responses.success(res, "package untaked succesfully", 200);
-//     } catch (error) {
-//       responses.error(res, error, 500);
-//     }
-//   }
-// );
+
+export const get_one_deliveryman = asyncHandler(
+  async (req: Request, res: Response) => {
+    try {
+      const deliveryManId = req.user.deliveryManInfo?.toString() || "";
+      const result = await deliveryManServices.findDeliveryManById(deliveryManId);
+      responses.sendDeliverymans(res, result, 200);
+    } catch (error) {
+      responses.error(res, error, 500);
+    }
+  }
+);
+
