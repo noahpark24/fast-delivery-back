@@ -9,4 +9,5 @@ export interface PackageInterface {
   additional_information: string;
   quantity: number;
   quantity_taked: number;
+  coords?:Object;
 }
