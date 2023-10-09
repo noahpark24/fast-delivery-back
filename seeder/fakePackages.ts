@@ -1,7 +1,8 @@
 const fakedata = [
   {
-    client: "CR7",
-    destination: "peronio 123, CABA",
+    client: "adolf h.",
+    destination: "Migueletes 534, C1426 CABA",
+    coords: { lat: -34.5887007, lng: -58.3966804 },
     is_delivered: false,
     package_weight: 20.0,
     deadline_date: "2023-10-10",
@@ -11,7 +12,8 @@ const fakedata = [
   },
   {
     client: "Messi",
-    destination: "mesiland 2050, CABA",
+    destination: "Av. Cabildo 4, C1425BIC CABA",
+    coords: { lat: -34.5745832, lng: -58.4380836 },
     is_delivered: false,
     package_weight: 60.0,
     deadline_date: "2023-10-10",
@@ -21,7 +23,8 @@ const fakedata = [
   },
   {
     client: "Tevez",
-    destination: "industria 2219, CABA",
+    destination: "Báez 240, C1426 CABA",
+    coords: { lat: -34.57254, lng: -58.4330792 },
     is_delivered: false,
     package_weight: 20.9,
     deadline_date: "2023-10-10",
@@ -31,7 +34,8 @@ const fakedata = [
   },
   {
     client: "La Mole Moli",
-    destination: "telefe al 0800, CABA",
+    destination: "Méndez de Andes 1939, C1406 CABA",
+    coords: { lat: -34.6198574, lng: -58.4629654 },
     is_delivered: false,
     package_weight: 15.0,
     deadline_date: "2023-10-10",
@@ -41,7 +45,8 @@ const fakedata = [
   },
   {
     client: "Carlos Melconian",
-    destination: "peronioes 123, CABA",
+    destination: "Av. Donato Álvarez 1351, CABA",
+    coords: { lat: -34.6110039, lng: -58.4631215 },
     is_delivered: false,
     package_weight: 20.0,
     deadline_date: "2023-10-10",
@@ -51,7 +56,8 @@ const fakedata = [
   },
   {
     client: "Antonella Messi",
-    destination: "mesiland 2050, CABA",
+    destination: "Martínez Rosas 1200-1102,CABA",
+    coords: { lat: -34.5983164, lng: -58.4527853 },
     is_delivered: false,
     package_weight: 60.0,
     deadline_date: "2023-10-10",
@@ -61,7 +67,8 @@ const fakedata = [
   },
   {
     client: "Ricardo Fort",
-    destination: "felfort 2219, CABA",
+    destination: "Av. Melián 2102-2200,CABA",
+    coords: { lat: -34.5681507, lng: -58.4712103 },
     is_delivered: false,
     package_weight: 20.9,
     deadline_date: "2023-10-10",
@@ -71,7 +78,8 @@ const fakedata = [
   },
   {
     client: "Michael Jackson",
-    destination: "cementerio de recoleta, CABA",
+    destination: "9 de Julio 120, Chacabuco, Provincia de Buenos Aires",
+    coords: { lat: -34.6413575, lng: -60.4787987 },
     is_delivered: false,
     package_weight: 15.0,
     deadline_date: "2023-10-10",
