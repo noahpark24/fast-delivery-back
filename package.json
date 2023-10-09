@@ -8,7 +8,7 @@
     "dev": "nodemon --exec ts-node --files server.ts",
     "lint": "eslint .",
     "test": "cross-env NODE-ENV=test jest --verbose",
-    "build": "tsc --outDir /dist"
+    "build": "tsc --outDir ./dist"
   },
   "author": "golfito red",
   "license": "ISC",

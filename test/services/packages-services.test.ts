@@ -21,6 +21,8 @@ describe('packages_services', () => {
 
 	it('should create a new package', async () => {
 		const newPackageData: PackageInterface = {
+			quantity: 0,
+			quantity_taked: 0,
 			client: 'Cliente de prueba',
 			destination: 'Dirección de prueba',
 			is_delivered: false,
@@ -37,6 +39,8 @@ describe('packages_services', () => {
 
 	it('should get a package by ID', async () => {
 		const newPackageData: PackageInterface = {
+			quantity_taked: 0,
+			quantity: 0,
 			client: 'Cliente de prueba5',
 			destination: 'Dirección de prueba',
 			is_delivered: false,
@@ -56,6 +60,8 @@ describe('packages_services', () => {
 
 	it('should delete a package by ID', async () => {
 		const newPackageData: PackageInterface = {
+			quantity: 0,
+			quantity_taked: 0,
 			client: 'Cliente de prueba5',
 			destination: 'Dirección de prueba',
 			is_delivered: false,
@@ -74,6 +80,8 @@ describe('packages_services', () => {
 
 	it('should edit a package', async () => {
 		const newPackageData: PackageInterface = {
+			quantity_taked: 0,
+			quantity: 0,
 			client: 'Cliente de prueba',      destination: 'Dirección de prueba',
 			is_delivered: false,
 			package_weight: 1.5,
