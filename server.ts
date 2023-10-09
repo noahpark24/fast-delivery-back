@@ -27,6 +27,9 @@ server.use(bodyParser.json());
 server.use(express.json());
 server.use(cookieParser());
 server.use("/api", routes);
+server.get("/ping", (req, res) => {
+  res.sendStatus(200);
+});
 //Swagger config
 server.use(
   "/api-docs",
@@ -35,7 +38,7 @@ server.use(
 );
 
 connectDB();
-server.listen(3001, "0.0.0.0", async () => {
+server.listen(8080, "0.0.0.0", async () => {
   console.log("listening");
 });
 
