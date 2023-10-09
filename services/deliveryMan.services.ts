@@ -1,9 +1,9 @@
-import { Types } from "mongoose";;
-import DeliveryManModel from "../models/DeliveryMan.model";;
+import { Types } from "mongoose";
+import DeliveryManModel from "../models/DeliveryMan.model";
 import Package from "../models/Package.model";
 import { PackagesServices } from "./packages.services";
-const packages_service = PackagesServices.getInstance();;
-import UserModel from '../models/User.model';
+const packages_service = PackagesServices.getInstance();
+import UserModel from "../models/User.model";
 
 export default class DeliveryManService {
   private static instance: DeliveryManService | null = null;
@@ -74,7 +74,6 @@ export default class DeliveryManService {
           pack.quantity = pack.quantity_taked;
           pack.quantity_taked = 0;
           await pack.save();
-
           if (deliveryman.current_deliveries > 0) {
             deliveryman.current_deliveries -= pack.quantity;
           }
@@ -109,7 +108,6 @@ export default class DeliveryManService {
   async markDelivered(deliverymanId: string, packageId: string) {
     try {
       const deliveryman = await this.findDeliveryManById(deliverymanId);
-      console.log("desp de deli", deliveryman);
       const packageIndex = deliveryman.packages.findIndex(
         (pkg) => pkg.toString() === packageId
       );
