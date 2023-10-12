@@ -9,6 +9,10 @@ const DeliveryMan = new mongoose_1.Schema({
     },
     active: {
         type: Boolean,
+        default: true,
+    },
+    status: {
+        type: Boolean,
         default: false,
     },
     drinked_alcohol: {
@@ -19,9 +23,9 @@ const DeliveryMan = new mongoose_1.Schema({
         type: Boolean,
         default: false,
     },
-    sleeped_well: {
+    have_stress: {
         type: Boolean,
-        default: true,
+        default: false,
     },
     packages: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Package' }],
 });

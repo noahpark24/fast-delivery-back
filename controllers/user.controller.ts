@@ -51,6 +51,8 @@ const login = asyncHandler(async (req: Request, res: Response) => {
 
     const payload: UserPayload = {
       id: user.id,
+      name: user.name,
+      profile_img: user.profile_img,
       email: user.email,
       is_admin: user.is_admin,
       is_deleted: user.is_deleted,

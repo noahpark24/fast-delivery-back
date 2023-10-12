@@ -9,6 +9,9 @@ components:
           maximum: 10
         active:
           type: boolean
+          default: true
+        status:
+          type: boolean
           default: false
         drinked_alcohol:
           type: boolean
@@ -16,9 +19,9 @@ components:
         taked_drugs:
           type: boolean
           default: false
-        sleeped_well:
+        have_stress:
           type: boolean
-          default: true
+          default: false
         packages:
           type: array
           items:
