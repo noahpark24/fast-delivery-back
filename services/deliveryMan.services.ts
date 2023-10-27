@@ -1,9 +1,9 @@
-import { Types } from "mongoose";
-import DeliveryManModel from "../models/DeliveryMan.model";
-import Package from "../models/Package.model";
-import { PackagesServices } from "./packages.services";
+import { Types } from 'mongoose';
+import DeliveryManModel from '../models/DeliveryMan.model';
+import Package from '../models/Package.model';
+import { PackagesServices } from './packages.services';
 const packages_service = PackagesServices.getInstance();
-import UserModel from "../models/User.model";
+import UserModel from '../models/User.model';
 
 export default class DeliveryManService {
   private static instance: DeliveryManService | null = null;
@@ -19,7 +19,7 @@ export default class DeliveryManService {
     try {
       const deliveryman = await DeliveryManModel.findById(deliverymanId);
       if (!deliveryman) {
-        throw new Error("Deliveryman not found");
+        throw new Error('Deliveryman not found');
       }
       return deliveryman;
     } catch (error) {
@@ -56,7 +56,7 @@ export default class DeliveryManService {
           deliveryman.status = true;
         }
       } else {
-        return "daily packages limit exceded";
+        return 'daily packages limit exceded';
       }
       await deliveryman.save();
     } catch (error) {
@@ -103,11 +103,11 @@ export default class DeliveryManService {
             deliveryman.status = false;
           }
         } else {
-          return "daily packages limit exceded";
+          return 'daily packages limit exceded';
         }
         await deliveryman.save();
       } else {
-        throw new Error("Package not found in deliveryman packages");
+        throw new Error('Package not found in deliveryman packages');
       }
     } catch (error) {
       throw error;
@@ -117,12 +117,24 @@ export default class DeliveryManService {
     try {
       const deliveryman = await DeliveryManModel.findById(deliverymanId);
       if (!deliveryman) {
-        throw new Error("Deliveryman not found");
+        throw new Error('Deliveryman not found');
       }
-
       // Cambiar el estado activo del repartidor
       deliveryman.active = !deliveryman.active;
+      if (deliveryman.active === false) {
+        for (let i = 0; i <= deliveryman.packages.length; i++) {
+          let pack = await packages_service.getPackage(
+            deliveryman.packages[i]._id.toString()
+          );
 
+          if (pack) {
+            if (!pack.is_delivered) {
+              await this.untakePackage(deliverymanId, pack._id.toString());
+              await deliveryman.save();
+            }
+          }
+        }
+      }
       // Guardar los cambios en la base de datos
       await deliveryman.save();
       return deliveryman;
@@ -140,9 +152,8 @@ export default class DeliveryManService {
       if (packagesData.length > 0) {
         return packagesData;
       } else {
-        throw new Error("No packages found");
+        throw new Error('No packages found');
       }
-      
     } catch (error) {
       throw error;
     }
@@ -160,19 +171,19 @@ export default class DeliveryManService {
           foundPackage.is_delivered = true;
 
           if (!deliveryman) {
-            throw new Error("Deliveryman not found");
+            throw new Error('Deliveryman not found');
           }
-  
-          deliveryman.delivered += foundPackage.quantity_taked
-    
+
+          deliveryman.delivered += foundPackage.quantity_taked;
+
           await deliveryman.save();
 
           await foundPackage.save();
         } else {
-          throw new Error("Package not found in the database");
+          throw new Error('Package not found in the database');
         }
       } else {
-        throw new Error("Package not found in deliveryman packages");
+        throw new Error('Package not found in deliveryman packages');
       }
     } catch (error) {
       throw error;
