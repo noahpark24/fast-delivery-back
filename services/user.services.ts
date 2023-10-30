@@ -41,6 +41,16 @@ export default class User_Services {
 			throw error
 		}
 	}
+
+	async findById(id: string) {
+		try {
+			const user = await UserModel.findById(id)
+			return user
+		} catch (error) {
+			throw error
+		}
+	}
+
 	async validateUserPassword(
 		user: UserWithPasswordValidation,
 		password: string
